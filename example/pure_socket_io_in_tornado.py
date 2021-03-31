@@ -32,10 +32,10 @@ def get_json(sid):
 class WebSocketHandler(tornado.websocket.WebSocketHandler, ABC):
     def open(self, *args):
         print("New connection")
-        self.write_message("Welcome!")
+        self.write_message("hello")
 
     def on_message(self, message):
-        print("New message {}".format(message))
+        print("Received message: {}".format(message))
         self.write_message(message.upper())
 
     def on_close(self):
@@ -46,7 +46,7 @@ def make_app():
     return tornado.web.Application(
         [
             (r"/socket.io/", socketio.get_tornado_handler(sio)),
-            (r"/ws/", WebSocketHandler),
+            (r"/ws", WebSocketHandler),
         ],
     )
 
