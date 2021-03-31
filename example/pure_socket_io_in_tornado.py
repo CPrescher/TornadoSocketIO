@@ -10,6 +10,13 @@ from tornado.web import Application
 sio = socketio.AsyncServer(async_mode='tornado', cors_allowed_origins="*")
 
 
+@sio.on('connect')
+def connect(sid, data):
+    print(sid, ' connected!')
+    print('data: ', data)
+    return sid
+
+
 @sio.on('hello')
 def hello(sid):
     print(sid, ' said hello!')
